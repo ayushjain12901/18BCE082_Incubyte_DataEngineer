@@ -18,7 +18,6 @@ schema = {
 		}
 
 
-
 # Query for table creation
 def create_table(split_data):
 	country = split_data[8] # Represents Country name
@@ -44,6 +43,11 @@ def create_table(split_data):
 	return query + ")"
 	
 
+# Query for insertion in table
+def insert(split_data):
+	country = split_data[7] # Represents Country name
+	query = "INSERT INTO " + country + " values" + str(split_data)
+	return query
 
 
 #Open the file in read mode
@@ -79,6 +83,7 @@ for line in f:
 		if(splitted_data[8] not in s):  # Check if table already exists
 			s.add(splitted_data[8])
 			mycursor.execute(create_table(splitted_data)) # Execute create table
+		mycursor.execute(insert(splitted_data[1:])) # Execute insert query
 
 
 # Commit data in database and deallocate cursor
